@@ -3,6 +3,7 @@ package by.farad.accesscontrolserver.db;
 import by.farad.accesscontrolserver.util.PasswordUtil;
 
 import java.sql.*;
+import java.util.*;
 
 public class DatabaseManager {
 
@@ -50,6 +51,28 @@ public class DatabaseManager {
         }
         return false;
     }
+
+    public static List<Map<String, Object>> getWorkersList() throws SQLException {
+        String query = "SELECT id, name, surname, patronomyc, sex, birthday, position, department FROM workers";
+        List<Map<String, Object>> workersList = new ArrayList<>();
+
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Map<String, Object> worker = new LinkedHashMap<>();
+                worker.put("id", rs.getInt("id"));
+                worker.put("name", rs.getString("name"));
+                worker.put("surname", rs.getString("surname"));
+                worker.put("patronomyc", rs.getString("patronomyc"));
+                worker.put("sex", rs.getString("sex"));
+                worker.put("birthday", rs.getDate("birthday").toString()); // Преобразуем дату в строку
+                worker.put("position", rs.getString("position"));
+                worker.put("department", rs.getString("department"));
+                workersList.add(worker);
+            }
+        }
+        return workersList;
+    }
+
 
     public static void closeConnection() {
         if (connection != null) {

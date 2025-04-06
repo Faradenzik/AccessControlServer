@@ -2,6 +2,7 @@ package by.farad.accesscontrolserver;
 
 import by.farad.accesscontrolserver.handlers.LoginHandler;
 import by.farad.accesscontrolserver.handlers.RegisterHandler;
+import by.farad.accesscontrolserver.handlers.WorkersHandler;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -17,6 +18,7 @@ public class HttpServerApp {
 
         server.createContext("/register", new RegisterHandler());
         server.createContext("/login", new LoginHandler());
+        server.createContext("/workers", new WorkersHandler());
 
         server.start();
         System.out.println("Server started on http://localhost:8080");

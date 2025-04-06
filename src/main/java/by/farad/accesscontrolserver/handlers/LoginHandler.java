@@ -2,6 +2,7 @@ package by.farad.accesscontrolserver.handlers;
 
 import by.farad.accesscontrolserver.db.DatabaseManager;
 import by.farad.accesscontrolserver.db.EventLogger;
+import by.farad.accesscontrolserver.util.ObjectMapperSingleton;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class LoginHandler implements HttpHandler {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = ObjectMapperSingleton.getObjectMapper();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
